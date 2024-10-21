@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DetilPenjualan;
 use App\Models\Penjualan;
+use Hash;
 use Illuminate\Http\Request;
 use App\Models\Items;
 use Illuminate\Support\Facades\DB;
@@ -75,11 +76,12 @@ class barang extends Controller
             'id_karyawan' => Auth::user()->id
         ]);
 
+        $id = Penjualan::latest()->first()->id_penjualan;
         $kembalian = $req['uang'] - $data['harga_total'];
         foreach($data as $cart){
             if(isset($cart['id_barang'])){
                 DetilPenjualan::create([
-                    'id_penjualans' => Penjualan::latest()->first()->id_penjualan,
+                    'id_penjualans' => $id,
                     'id_barang' => $cart['id_barang'],
                     'jumlah_barang' => $cart['kuantitas']
                 ]);
@@ -91,14 +93,14 @@ class barang extends Controller
         }
 
                 // Set params
-                $mid = '123123456';
+                $mid = Hash::make($id);
                 $store_name = 'GRAND FC';
                 $store_address = 'Jl. Moh Saleh Bantilan';
                 $store_phone = '085222224333';
                 $store_email = 'Sulaimanaksa@yahoo.com';
                 $store_website = 'grandfc.com';
                 $tax_percentage = 0;
-                $transaction_id = 'TX123ABC456';
+                $transaction_id = Hash::make($id);
         
                 // Set items
                 $items = [];
@@ -153,7 +155,7 @@ class barang extends Controller
                 session()->forget('cart');
                 session()->flash('success', 'Kembalian '.number_format($kembalian,0,',','.'));
 
-        return redirect('cashier');
+        return response()->json(['redirect_url' => route('cashier')]);
         
     }
 

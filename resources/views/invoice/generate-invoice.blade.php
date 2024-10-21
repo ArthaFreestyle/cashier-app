@@ -94,7 +94,7 @@
             </tr>
             <tr class="bg-blue">
                 <th width="50%" colspan="2">Order Details</th>
-                <th width="50%" colspan="2">Admin Details</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -102,22 +102,19 @@
                 <td>Order Id:</td>
                 <td>{{ $order->id_penjualan }}</td>
 
-                <td>Full Name:</td>
-                <td>{{ $user->Nama_User }}</td>
+                
             </tr>
             <tr>
                 <td>Tracking Id/No.:</td>
-                <td>funda-CRheOqspbA</td>
+                <td>{{ Hash::make($order->id_penjualan) }}</td>
 
-                <td>Email Id:</td>
-                <td>{{ $user->email }}</td>
+                
             </tr>
             <tr>
                 <td>Ordered Date:</td>
                 <td>{{ $date }}</td>
 
-                <td>Phone:</td>
-                <td>{{ $user->wa }}</td>
+                
             </tr>
             <tr>
                 <td>Payment Mode:</td>

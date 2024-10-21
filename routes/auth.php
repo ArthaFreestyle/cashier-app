@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
         Route::get('activity',[activitys::class,'index']);
         Route::get('errorlog',[activitys::class,'errorlog']);
         Route::get('registeritem',[barang::class,'items']);
-        Route::get('cashier',[barang::class,'index']);
+        Route::get('cashier',[barang::class,'index'])->name('cashier');
         Route::get('invoice',[activitys::class,'invoice']);
         Route::get('access',[UserController::class,'access']);
         Route::get('addstock',[barang::class,'addstock']);

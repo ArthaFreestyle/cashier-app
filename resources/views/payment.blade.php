@@ -87,7 +87,7 @@
                     <td class="border-bottom-0">
                     </td>
                     <td class="border-bottom-0">
-                      <h6 class="fw-semibold mb-0 fs-4"><b>Disc%</b></h6>
+                      <h6 class="fw-semibold mb-0 fs-4"><b>Money</b></h6>
                     </td>
                     <td class="border-bottom-0">
                       <input type="number" class="form-control" id='disc' name="disc"  style="border: 0ch;width:100px" disabled>
@@ -133,7 +133,7 @@
                 <button class="besar" value="4">4</button>
                 <button class="besar" value="5">5</button>
                 <button class="besar" value="6">6</button>
-                <button class="action" value="disc">Disc%</button>
+                <button class="action" value="disc">Money</button>
               </div> 
               <div class="d-flex justify-content-center" style="height: 100px">
                 <button class="besar" value="7">7</button>
@@ -147,7 +147,7 @@
                 <button class="besar" value=".">.</button>
                 <button class="back" value="backspace"><i class="bi bi-backspace"></i></button>
               </div> 
-              <a href="Payments"><button class="sangat-besar"><b>Validate </b><i class="bi bi-chevron-compact-right"></i></button></a>
+              <button class="sangat-besar"><b>Validate </b><i class="bi bi-chevron-compact-right"></i></button>
               
               
               
@@ -230,7 +230,7 @@
                 <h6 class="fw-semibold mb-0 fs-4">Total</h6>
               </td>
               <td class="border-bottom-0">
-                <h6 class="fw-semibold mb-0 fs-4">{{ number_format(session('cart')['harga_total'],0,',','.') }}</h6>
+                <h6 class="fw-semibold mb-0 fs-4" id="TotalHarga">{{ number_format(session('cart')['harga_total'],0,',','.') }}</h6>
               </td>
             </tr>    
             @endif   
@@ -286,7 +286,7 @@
       $('#kodebarang').keyup(function() {
           var query = $(this).val();
           if (query != '') {
-              var _token = $('input[name="csrf-token"]').val();
+            let csrfToken = $('meta[name="csrf-token"]').attr('content');
               $.ajax({
                   url: '/ajax-autocomplete',
                   method: "GET",
@@ -381,6 +381,20 @@
       }
     });
 
+    $('.sangat-besar').on('click',()=>{
+      let csrfToken = $('meta[name="csrf-token"]').attr('content');
+      $.ajax({
+        url: 'checkout',
+                  method: "POST",
+                  data: {
+                      uang: $('#disc').val(),
+                      _token: csrfToken
+                  },
+                  success: function(response){
+                    window.location.href = response.redirect_url;
+                  }
+      })
+    })
      
   });
 

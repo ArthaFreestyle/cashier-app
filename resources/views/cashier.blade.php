@@ -55,7 +55,7 @@
                   @if (session()->has('cart'))
                   @foreach (session('cart') as $carty )
                     @if(isset($carty['id_barang']))
-                  <tr class="box">
+                  <tr class="box" style="border:1px solid black">
                     <td class="border-bottom-0"><h6 class="fw-semibold mb-0">{{ $loop->iteration }}</h6></td>
                     <td class="border-bottom-0">
                       <p class="mb-0 fw-semibold">{{ $carty['nama_barang'] }}</p>
@@ -358,7 +358,9 @@
 
     if($(this).val() == 'del'){
       val.value = 0;
-      $('#change').submit();
+      setInterval(() => {
+        $('#change').submit();
+      }, 2000);
       return 0;
     }
 
@@ -406,7 +408,7 @@
       }
     });
 
-     
+  
   });
 
 </script>
