@@ -304,7 +304,11 @@
           $('#barangList').fadeOut();
       });
 
-
+      $('#quant').on('change',() => {
+        setInterval(() => {
+              $('#change').submit();
+            }, 2000);
+      })
 
     $('.besar').hover(function(){
       $(this).css('background-color','#d1d1cf')

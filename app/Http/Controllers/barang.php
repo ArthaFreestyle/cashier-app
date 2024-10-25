@@ -171,7 +171,7 @@ class barang extends Controller
         }
 
         if(isset($carts[$data->id_barang])){
-            if($data->jumlah_barang > $carts[$data->id_barang]['kuantitas'] ){
+            if($data->jumlah_barang <= $carts[$data->id_barang]['kuantitas'] ){
                 session()->flash('error', 'Stock tidak cukup silahkan Restock dulu');
                 return redirect('cashier');
             }
